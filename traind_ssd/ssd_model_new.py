@@ -38,11 +38,27 @@ def fpn(out1, out2, out3):
     out2 = keras.layers.Conv2D(128, 1, 1, "same")(out2)
     out3 = keras.layers.Conv2D(128, 1, 1, "same")(out3)
     out2 = out2 + keras.layers.UpSampling2D(2)(out3)
+    out2 = keras.layers.BatchNormalization()(out2)
     out1 = out1 + keras.layers.UpSampling2D(2)(out2)
-    out1 = keras.layers.Conv2D(128, 3, 2, "same")(out1)
+    out1 = keras.layers.BatchNormalization()(out1)
+    out1 = keras.layers.Conv2D(256, 3, 2, "same")(out1)
     out2 = keras.layers.Conv2D(256, 3, 2, "same")(out2)
-    out3 = keras.layers.Conv2D(512, 3, 2, "same")(out3)
+    out3 = keras.layers.Conv2D(256, 3, 2, "same")(out3)
     return out1, out2, out3
+   
+    
+    # out1 = Conv2D(64, (1,1), kernel_regularizer=l2(l2_reg))(out1)
+    # out2 = Conv2D(128, (1,1), kernel_regularizer=l2(l2_reg))(out2)
+    # out3 = Conv2D(256, (1,1), kernel_regularizer=l2(l2_reg))(out3)
+    # out3 = conv_block(out3, 256)
+    # out32= upsample_block(out3, 256)
+    #
+    # out2 = Concatenate()([out32, out2])
+    # out2 = conv_block(out2, 128)
+    # out21= upsample_block(out2, 128)
+    #
+    # out1 = Concatenate()([out21, out1])
+    # out1 = conv_block(out1, 64)
 
 def head(x, output_filters, out_name):
 
