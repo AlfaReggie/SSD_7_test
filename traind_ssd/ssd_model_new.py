@@ -51,7 +51,7 @@ def fpn(out1, out2, out3):
     out1 = keras.layers.Conv2D(512, 3, 3, "same")(out1)
     out1 = keras.layers.BatchNormalization()(out1)
     out1 = keras.layers.UpSampling2D(2)(out1)
-    out1 = keras.layers.Conv2D(512, 3, 3, "same")(out1)
+    out1 = keras.layers.Conv2D(512, 4, 3, "same")(out1)
     out1 = keras.layers.BatchNormalization()(out1)
    
     out2 = keras.layers.BatchNormalization()(out2)
@@ -67,7 +67,7 @@ def fpn(out1, out2, out3):
     out2 = keras.layers.Conv2D(512, 3, 3, "same")(out2)
     out2 = keras.layers.BatchNormalization()(out2)
     out2 = keras.layers.UpSampling2D(2)(out2)
-    out2 = keras.layers.Conv2D(512, 3, 3, "same")(out2)
+    out2 = keras.layers.Conv2D(512, 4, 3, "same")(out2)
     out2 = keras.layers.BatchNormalization()(out2)
       
     out3 = keras.layers.BatchNormalization()(out3)
@@ -83,12 +83,12 @@ def fpn(out1, out2, out3):
     out3 = keras.layers.Conv2D(512, 3, 3, "same")(out3)
     out3 = keras.layers.BatchNormalization()(out3)
     out3 = keras.layers.UpSampling2D(2)(out3)
-    out3 = keras.layers.Conv2D(512, 3, 3, "same")(out3)
+    out3 = keras.layers.Conv2D(512, 4, 3, "same")(out3)
     out3 = keras.layers.BatchNormalization()(out3)
    
-    out1 = keras.layers.Conv2D(1024, 4, 3, "same")(out1)
-    out2 = keras.layers.Conv2D(512, 2, 2, "same")(out2)
-    out3 = keras.layers.Conv2D(512, 2, 2, "same")(out3)
+    out1 = keras.layers.Conv2D(1024, 4, 4, "same")(out1)
+    out2 = keras.layers.Conv2D(1024, 4, 4, "same")(out2)
+    out3 = keras.layers.Conv2D(1024, 4, 4, "same")(out3)
     return out1, out2, out3
    
     
