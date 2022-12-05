@@ -34,22 +34,14 @@ from keras_layers.keras_layer_DecodeDetectionsFast import DecodeDetectionsFast
 
 
 def fpn(out1, out2, out3):
-    inp_1 = keras.layers.Conv2D(128, 1, 1, "same")(out1)
-    inp_2 = keras.layers.Conv2D(128, 1, 1, "same")(out2)
-    inp_3 = keras.layers.Conv2D(128, 1, 1, "same")(out3)
-    
-    out3 = inp_3 + keras.layers.UpSampling2D(2)(inp_1)
-    out3 = keras.layers.BatchNormalization()(out3)
-    out3 = keras.layers.Conv2D(256, 2, 1, "same")(out3)
-    out2 = inp_2 + keras.layers.UpSampling2D(2)(inp_3)
-    out2 = keras.layers.BatchNormalization()(out2)
-    out2 = keras.layers.Conv2D(256, 2, 1, "same")(out2)
-    out1 = inp_1 + keras.layers.UpSampling2D(2)(inp_2)
-    out1 = keras.layers.BatchNormalization()(out1)
-    out1 = keras.layers.Conv2D(256, 2, 1, "same")(out1)
-      
-    out1 = keras.layers.Conv2D(512, 3, 2, "same")(out1)
-    out2 = keras.layers.Conv2D(512, 3, 2, "same")(out2)
+   
+    out1 = keras.layers.Conv2D(128, 1, 1, "same")(out1)
+    out2 = keras.layers.Conv2D(128, 1, 1, "same")(out2)
+    out3 = keras.layers.Conv2D(128, 1, 1, "same")(out3)
+    out2 = out2 + keras.layers.UpSampling2D(2) + keras.layers.BatchNormalization()(out3)
+    out1 = out1 + keras.layers.UpSampling2D(2) + keras.layers.BatchNormalization()(out2)
+    out1 = keras.layers.Conv2D(128, 3, 2, "same")(out1)
+    out2 = keras.layers.Conv2D(256, 3, 2, "same")(out2)
     out3 = keras.layers.Conv2D(512, 3, 2, "same")(out3)
     return out1, out2, out3
       
